@@ -28,10 +28,10 @@ We quantify the individual-level legibility of common biological and pathologica
 ![performance_grid](assets/performance_grid.jpg)
 
 
-![data_utility](assets/data_utility)
+![data_utility](assets/data_utility.jpg)
 
 	
-![html_tutorial](assets/html_tutorial.png)
+![html_tutorial](assets/html_tutorial.jpg)
 	
 
 
