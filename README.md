@@ -27,7 +27,7 @@ Software © Dr James K Ruffle | j.ruffle@ucl.ac.uk | High-Dimensional Neurology,
 
 
 ## What is this repository for?
-This is the codebase for the article: [The legibility of the human brain](URL)
+This is the codebase for the article: [The legibility of the human brain](URL).
 
 Harmonising *large scale multichannel neuroimaging data*, *high-performance hardware*, and a custom-built *general purpose deep learning training pipeline*, we quantify the **individual-level legibility of common biological and pathological characteristics from models of the structurally and functionally imaged human brain**. 
 
@@ -63,6 +63,7 @@ You can **retrain** a model using this [python code](code/train.py).
 - There may be dependencies you need to install (included but not limited to [PyTorch](https://pytorch.org), [monai](https://monai.io), [sklearn](https://scikit-learn.org/stable/), [nibabel](https://nipy.org/nibabel/)) - please review the code imports for this within the file.
 
 There are numerous optional arguments with [train.py](code/train.py).
+
 Calling ```python train.py -h``` will return the following:
 
 ```
