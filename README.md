@@ -59,7 +59,7 @@ N.B. A detailed breakdown of all model performances is available as a [csv file 
 
 
 ### To retrain
-You can **retrain** a model using this python code](code/train.py)
+You can **retrain** a model using this [python code](code/train.py)
 - There may be dependencies you need to install (included but not limited to [PyTorch](https://pytorch.org), [monai](https://monai.io), [sklearn](https://scikit-learn.org/stable/), [nibabel](https://nipy.org/nibabel/)) - please review the code imports for this within the file.
 
 There are numerous optional arguments with [train.py](code/train.py) 
@@ -100,14 +100,15 @@ optional arguments:
   --hello_world         hello world introduction
 ```
 
-Example training call, training a sex classifier with T1+FLAIR+DWI, with otherwise default parameters.
+**Example training call, training a sex classifier with T1+FLAIR+DWI, with otherwise default parameters.**
 ```python train.py --target sex --inputs flair t1 dwi```
+
 N.B. You **do not** need to pass all input data. The model will recognise the inputs you provide it, zero those non-supplied entities, and remove this from the back-propagation operation. In the example call above, rsfMRI connectivity and non-imaging data will all be zeroed, and held out from back-propagation.
 
 
 Code for all model training and post-hoc analysis detailed within the [article](URL) is open sourced [here](code/). 
 
-Model architecture is available [here](assets/architecture.jpg)
+Model architecture is available [here](assets/architecture.jpg).
 
 ![efficiency](assets/training_efficiency.jpg)
 **Anticipated training times (benchmarks on 4 x P100 GPUs)**, A) Strip plot illustrates training time taken per model in GPU minutes (x-axis) for all possible feature input combinations (y-axis). Grey points indicate individual models, with mean shown as a black diamond, and 95% confidence interval shown as a black line. B) Bar plot of total training time in GPU hours for all feature input combinations. Only 64 x 64 x 64 resolution models are shown here for visual simplicity. 
