@@ -3,12 +3,12 @@
 
 Software © Dr James K Ruffle | j.ruffle@ucl.ac.uk | High-Dimensional Neurology, UCL Queen Square Institute of Neurology
 
-## Headline numbers:
-	- Models trained, validated, and tested across *23810 unique UK Biobank participants*.
-	- *700 individual models* trained, offering flexibility in data availability spanning volumetric T1, FLAIR, DWI, resting functional connectivity, and non-imaging data (constitutional, psychological, serological, and disease).
-	- *4526 P100 GPU hours*
-	- *State-of-the-art sex classification: balanced accuracy on held-out test set 99.7%* (**best achieved with T1+FLAIR+DWI neuroimaging**)
-	- *State-of-the-art age prediction: mean absolute error on held-out test set 2.048%* (**best achieved with T1+FLAIR neuroimaging**)
+## Headline numbers
+- Models trained, validated, and tested across *23810 unique UK Biobank participants*.
+- *700 individual models* trained, offering flexibility in data availability spanning volumetric T1, FLAIR, DWI, resting functional connectivity, and non-imaging data (constitutional, psychological, serological, and disease).
+- *4526 P100 GPU hours*
+- *State-of-the-art sex classification: balanced accuracy on held-out test set 99.7%* (**best achieved with T1+FLAIR+DWI neuroimaging**)
+- *State-of-the-art age prediction: mean absolute error on held-out test set 2.048%* (**best achieved with T1+FLAIR neuroimaging**)
 
 ![performance_grid](assets/performance_grid.jpg)
 *Model performances.* A) Test set performance for all models across the constitutional (C) – orange, disease (D) – blue, psychology (P) – green, and serology (S) – pink feature domains. Index of performance is given as balanced accuracy for classification targets and R2 for regression fits. The x-axis of all heatmaps depicts the model target, and y-axis depicts the range of feature inputs. White boxes demarcate the best set of inputs to achieve the greatest out-of-sample model performance.
