@@ -99,16 +99,15 @@ optional arguments:
 
 Example training call, training a sex classifier with T1+FLAIR+DWI, with otherwise default parameters.
 ```python train.py --target sex --inputs flair t1 dwi```
+N.B. You **do not** need to pass all input data. The model will recognise the inputs you provide it, zero those non-supplied entities, and remove this from the back-propagation operation. In the example call above, rsfMRI connectivity and non-imaging data will all be zeroed, and held out from back-propagation.
 
 
 Code for all model training and post-hoc analysis detailed within the [article](URL) is open sourced [here](code/). 
 
-Model architecture is shown below [here](assets/architecture.jpg)
-![architecture](assets/architecture.jpg)
+Model architecture is available [here](assets/architecture.jpg)
 
-
-Anticipated training times (benchmarks on 4 x P100 GPUs) are [here](assets/training_efficiency.jpg)
 ![efficiency](assets/training_efficiency.jpg)
+**Anticipated training times (benchmarks on 4 x P100 GPUs)**, A) Strip plot illustrates training time taken per model in GPU minutes (x-axis) for all possible feature input combinations (y-axis). Grey points indicate individual models, with mean shown as a black diamond, and 95% confidence interval shown as a black line. B) Bar plot of total training time in GPU hours for all feature input combinations. Only 64 x 64 x 64 resolution models are shown here for visual simplicity. 
 
 
 ## Usage queries
