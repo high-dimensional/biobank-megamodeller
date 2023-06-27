@@ -103,12 +103,12 @@ Example training call, training a sex classifier with T1+FLAIR+DWI, with otherwi
 
 Code for all model training and post-hoc analysis detailed within the [article](URL) is open sourced [here](code/). 
 
-Model architecture is shown below [here](assets/architecture.pdf)
-![architecture](assets/architecture.pdf)
+Model architecture is shown below [here](assets/architecture.jpg)
+![architecture](assets/architecture.jpg)
 
 
-Anticipated training times (benchmarks on 4 x P100 GPUs) are [here](assets/training_efficiency.pdf)
-![efficiency](assets/training_efficiency.pdf)
+Anticipated training times (benchmarks on 4 x P100 GPUs) are [here](assets/training_efficiency.jpg)
+![efficiency](assets/training_efficiency.jpg)
 
 
 ## Usage queries
