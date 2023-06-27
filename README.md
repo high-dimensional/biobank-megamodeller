@@ -8,6 +8,8 @@ Software © Dr James K Ruffle | j.ruffle@ucl.ac.uk | High-Dimensional Neurology,
 - [Headline numbers](#headline-numbers)
 - [What is this repository for?](#what-is-this-repository-for)
 - [Usage](#usage)
+	- [Pre-trained models](#pre-trained-models)
+	- [To retrain](#to-retrain)
 - [Open source](#open-source)
 - [Usage queries](#usage-queries)
 - [Citation](#citation)
@@ -42,20 +44,66 @@ Harmonising *large scale multichannel neuroimaging data*, *high-performance hard
 
 
 ## Usage
-- 1) Open the [HTML dashboard](Interactive_results.html) in your web browser. 
-- 2) Navigate to the target of choice.
+### Pre-trained models
+1) Open the [HTML dashboard](Interactive_results.html) in your web browser. 
+2) Navigate to the target of choice.
 	- Hovering over the target will show the best performing model with the input data required
 	- Clicking the target will provide a dropdown of all model performances, in detail.
-
+N.B. Supplement of all model performances is available as a [csv file here](assets/metrics_comparison_test.csv)
 
 ![html_tutorial](assets/html_tutorial.jpg)
 **Visual network analysis plots of feature relationships and model performances.** A) Graph of target features, with nodes sized by the absolute correlation coefficient (|r|)-weighted eigenvector centrality (EC), and edges sized according to |r|. B) Graph of target features, with nodes sized by the maximum information coefficient (MIC)-weighted eigenvector centrality (EC), and edges sized according to the MIC. C) Graph of target features, with nodes sized by the maximum balanced accuracy across all models (BA), with edges sized according to the mean inverse Euclidean distance of all input combinations between each pair of targets. For all panels we depict the top 60% of edges for visualisation purposes. Note that all graphs are made available as fully interactive and customizable HTML objects within the supplementary material.
 
 
-## Open source
-- Code for all model training and post-hoc analysis is open sourced [here](code/)
-- Supplement of all model performances is available as a [csv file here](assets/metrics_comparison_test.csv)
+### To retrain
+You can **retrain** a model using this python code](code/train.py)
+- There may be dependencies you need to install (included but not limited to [PyTorch](https://pytorch.org), [monai](https://monai.io), [sklearn](https://scikit-learn.org/stable/), [nibabel](https://nipy.org/nibabel/)) - please review the code imports for this within the file.
 
+There are numerous optional arguments with [train.py](code/train.py) 
+```python train.py -h
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --target TARGET       the variable to be predicted, default = "sex"
+  --inputs INPUTS [INPUTS ...]
+                        the data to be trained with, default = ["flair", "t1", "dwi", "metadata", "connectivity"]
+  --metadata_blocks METADATA_BLOCKS [METADATA_BLOCKS ...]
+                        the metadata blocks to be passed with, default = ["constitutional","serology","psychology","disease"]
+  --device DEVICE       gpu card access, default = "cuda:0"
+  --inpath INPATH       the data path which contains the imaging, metadata and connectivity. It should contain the subdirectories of TEST and TRAIN, with subsequent directory cascades of T1, FLAIR, DWI, etc., default = "/data/BIOBANK/"
+  --outpath OUTPATH     the data path for writing results to, default = "/data/BIOBANK/results_out/"
+  --epochs EPOCHS       the number of epochs to train for, default = 999999
+  --restore RESTORE     whether you are continuing a halted training loop, default=False
+  --batch_size BATCH_SIZE
+                        model batch size, default=64
+  --num_workers NUM_WORKERS
+                        number of multiprocessing workers, default=18
+  --resize RESIZE       Whether to resize the imaging, if passed as True shall work in 64 cubed, rather than the default 128, default=yes
+  --veto_transformations VETO_TRANSFORMATIONS
+                        Whether to prevent use of image transformations on the fly, default=yes since we have pre-computed them for speedup
+  --augs_probability AUGS_PROBABILITY
+                        probability of augmentation application, default=0.05
+  --diagnostic DIAGNOSTIC
+                        Whether to enable diagnostic mode, which re-encodes all input data as 1 and 0, for debugging purposes, default=no
+  --data_size DATA_SIZE
+                        Whether to reduce the size of the data for training, for debugging purposes, default = 999999999
+  --multi_gpu MULTI_GPU
+                        Whether to enable,default=no
+  --n_gpus N_GPUS       Number of GPUs to permit,default=4
+  --lr LR               Learning rate,defauly=0.0001
+  --patience PATIENCE   Model patience,default=30
+  --cache_val_set CACHE_VAL_SET
+                        whether to cache load the val dataset, default=yes
+  --hello_world         hello world introduction
+```
+
+Example training call, training a sex classifier with T1+FLAIR+DWI, with otherwise default parameters.
+```python train.py --target sex --inputs flair t1 dwi```
+
+
+
+Code for all model training and post-hoc analysis detailed within the [article](URL) is open sourced [here](code/). 
+Model architecture is shown [here](assets/architecture.pdf)
 
 
 ## Usage queries
@@ -63,7 +111,7 @@ Via github issue log or email to j.ruffle@ucl.ac.uk
 
 
 ## Citation
-If using these works, please cite the following [paper](https://arxiv.org/abs/X):
+If using these works, please cite the following [article](URL):
 
 James K Ruffle, Robert Gray, Samia Mohinta, Guilherme Pombo, Chaitanya Kaul, Harpreet Hyare, Geraint Rees, Parashkev Nachev. The legibility of the human brain. arXiv. 2023. DOI X
 
