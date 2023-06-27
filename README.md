@@ -20,14 +20,15 @@ Software © Dr James K Ruffle | j.ruffle@ucl.ac.uk | High-Dimensional Neurology,
 - **700 individual models** trained, offering flexibility in data availability spanning volumetric T1, FLAIR, DWI, resting functional connectivity, and non-imaging data (constitutional, psychological, serological, and disease).
 - **4526 P100 GPU hours**
 - **State-of-the-art sex classification: balanced accuracy on held-out test set 99.7%** (*using T1+FLAIR+DWI neuroimaging*)
-- **State-of-the-art age prediction: mean absolute error on held-out test set 2.048%** (*using T1+FLAIR neuroimaging*)
+- **State-of-the-art age prediction: mean absolute error on held-out test set 2.048 years** (*using T1+FLAIR neuroimaging*)
 
 ![performance_grid](assets/performance_grid.jpg)
 **Model performances.** A) Test set performance for all models across the constitutional (C) – orange, disease (D) – blue, psychology (P) – green, and serology (S) – pink feature domains. Index of performance is given as balanced accuracy for classification targets and R<sup>2</sup> for regression fits. The x-axis of all heatmaps depicts the model target, and y-axis depicts the range of feature inputs. White boxes demarcate the best set of inputs to achieve the greatest out-of-sample model performance.
 
 
 ## What is this repository for?
-This is the codebase for the article: [The legibility of the human brain](
+This is the codebase for the article: [The legibility of the human brain](URL)
+
 Harmonising *large scale multichannel neuroimaging data*, *high-performance hardware*, and a custom-built *general purpose deep learning training pipeline*, we quantify the **individual-level legibility of common biological and pathological characteristics from models of the structurally and functionally imaged human brain**. 
 
 **The process illuminates what can — and what plausibly cannot be — predicted from current neuroimaging with large-scale data and state-of-the-art deep learning architectures.**
@@ -35,6 +36,7 @@ Harmonising *large scale multichannel neuroimaging data*, *high-performance hard
 
 ![workflow](assets/workflow.jpg)
 **Workflow.** A) Data selection and partitioning. B) Mean T1-weighted, FLAIR, DWI images, and rsfMRI connectivity matrix across the full cohort of 23810 participants. C) Layered, nested, generative stochastic block model of modelling targets, with edges depicting the strength of interconnection. Red edges denote positive correlation coefficient (r) values, and blue for those negative. Wider edges denote a greater value of the absolute correlation coefficient, |r|. D) Algorithmic approach for exploring the model target-feature space to distinguish targets that can be reliably predicted from those that cannot, across all possible data inputs. Shown here is also a schematic of the possible data to train with, ranging from non-imaging data across the constitutional (C) – orange, disease (D) – blue, psychology (P) – green, and serology (S) – pink feature domains; and T1/FLAIR volumetric structural imaging; DWI volumetric imaging; and rsfMRI connectivity. These data are passed to individual trainable model blocks: a separate multilayer perceptron (MLP) for both non-imaging data, and rsfMRI connectivity, and a 3D convolutional neural network (CNN) for T1/FLAIR and/or DWI. Model block dense layers are then concatenated and passed to a final MLP for output prediction.
+
 
 
 ![data_utility](assets/data_utility.jpg)
