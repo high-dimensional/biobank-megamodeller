@@ -1,4 +1,4 @@
-# [The legibility of the human brain](URL): article codebase
+# Article codebase to [The legibility of the human brain](URL)
 
 Software © Dr James K Ruffle | j.ruffle@ucl.ac.uk | High-Dimensional Neurology, UCL Queen Square Institute of Neurology
 
@@ -39,12 +39,20 @@ Harmonising *large scale multichannel neuroimaging data*, *high-performance hard
 
 
 ## Usage
-Open [](Interactive_results.html)
+- 1) Open the [HTML dashboard](Interactive_results.html) in your web browser. 
+- 2) Navigate to the target of choice.
+	- Hovering over the target will show the best performing model with the input data required
+	- Clicking the target will provide a dropdown of all model performances, in detail.
 
-Code for all model training and post-hoc analysis is open sourced [here](code/)
-	
+
 ![html_tutorial](assets/html_tutorial.jpg)
 **Visual network analysis plots of feature relationships and model performances.** A) Graph of target features, with nodes sized by the absolute correlation coefficient (|r|)-weighted eigenvector centrality (EC), and edges sized according to |r|. B) Graph of target features, with nodes sized by the maximum information coefficient (MIC)-weighted eigenvector centrality (EC), and edges sized according to the MIC. C) Graph of target features, with nodes sized by the maximum balanced accuracy across all models (BA), with edges sized according to the mean inverse Euclidean distance of all input combinations between each pair of targets. For all panels we depict the top 60% of edges for visualisation purposes. Note that all graphs are made available as fully interactive and customizable HTML objects within the supplementary material.
+
+
+## Open source
+- Code for all model training and post-hoc analysis is open sourced [here](code/)
+- Supplement of all model performances is available as a [csv file here](assets/metrics_comparison_test.csv)
+
 
 
 ## Usage queries
