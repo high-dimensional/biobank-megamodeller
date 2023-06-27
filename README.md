@@ -101,9 +101,10 @@ Example training call, training a sex classifier with T1+FLAIR+DWI, with otherwi
 ```python train.py --target sex --inputs flair t1 dwi```
 
 
-
 Code for all model training and post-hoc analysis detailed within the [article](URL) is open sourced [here](code/). 
-Model architecture is shown [here](assets/architecture.pdf)
+
+Model architecture is shown below [here](assets/architecture.pdf)
+![workflow](assets/workflow.jpg)
 
 
 ## Usage queries
