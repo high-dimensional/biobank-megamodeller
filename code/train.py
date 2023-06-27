@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[ ]:
-
 
 import torch; import glob; import numpy as np; import pandas as pd
 from monai.data import DataLoader, Dataset, CacheDataset
@@ -32,10 +30,6 @@ from scipy.stats import kde
 from scipy.stats import gaussian_kde
 import seaborn as sns
 
-
-# In[ ]:
-
-
 notebook = False
 debug=False
 local=True
@@ -56,8 +50,6 @@ if not notebook:
     from tqdm import tqdm
 #     from tqdm.auto import tqdm
 
-
-# In[ ]:
 
 
 parser = argparse.ArgumentParser()
@@ -86,7 +78,7 @@ parser.add_argument("--hello_world",help="hello world introduction",action="stor
 args = parser.parse_args()
 
 
-# In[ ]:
+
 
 
 print("")
@@ -125,7 +117,7 @@ if pombo:
 print("")
 
 
-# In[ ]:
+
 
 
 all_imaging_keys = ["flair", "t1", "dwi"]
@@ -133,7 +125,7 @@ all_non_imaging_keys = ["connectivity", "metadata"]
 all_possible_keys = all_imaging_keys + all_non_imaging_keys
 
 
-# In[ ]:
+
 
 
 """
@@ -160,7 +152,7 @@ psychology_block = ['mood_swings', 'miserableness',
 metadata_test_mlp.drop(variables_to_drop,axis=1,inplace=True)
 
 
-# In[ ]:
+
 
 
 if args.hello_world:
@@ -178,7 +170,7 @@ if args.hello_world:
     sys.exit()
 
 
-# In[ ]:
+
 
 
 """
@@ -205,7 +197,7 @@ print("")
 print("")
 
 
-# In[ ]:
+
 
 
 # Seed
@@ -220,7 +212,7 @@ torch.backends.cudnn.benchmark = False
 torch.backends.cudnn.deterministic = True
 
 
-# In[ ]:
+
 
 
 """
@@ -282,55 +274,17 @@ apply_batch_norm_connectivity=True
 resize_input = args.resize
 new_side_length = 64
 
-##works with 64 cubed, not so good 128 for single channel
-# cnn_channels_hidden = [8, 16, 32, 64, 128, 256]
-# cnn_output_dims = 512
-
-# cnn_channels_hidden = [30, 60, 90, 120, 150, 180]  # (6 layers means 6 downsamplings. (Use 5 for 64 cubed))
-# cnn_output_dims = 210
-# cnn_channels_hidden = [30, 60, 90, 120, 150]  # (6 layers means 6 downsamplings. (Use 5 for 64 cubed))
-# cnn_channels_hidden = [8, 16, 32, 64, 128]
-
-###smith age channels
-# cnn_channels_hidden = [32, 64, 128, 256, 256, 64] -> this ends on 1x1x1x64
-# cnn_output_dims = 40
-
-
-cnn_channels_hidden = [32, 64, 128, 256, 256] # -> this ends on 2x2x2x256
-# Take a latent with dimensions Flat(2x2x2x256) - > 128
+cnn_channels_hidden = [32, 64, 128, 256, 256]
 cnn_output_dims = 128 
-# cnn_output_dims = 64
 
 if args.resize !='yes': ###only fo 128 cube
-#     cnn_channels_hidden = [32, 64, 128, 256, 256, 256, 64]
-#     cnn_channels_hidden = [32, 64, 128, 256, 256, 256, 64]
     cnn_channels_hidden = [32, 64, 128, 256, 256, 256]
     cnn_output_dims=256
-## cnn_output_dims = 80 ##?double for 128 - or 
-
-
-###densenet channels
-# cnn_channels_hidden = [6,12,24,16]
-# cnn_output_dims = 40
 
 #8 million params
 mlp_connectivity_layer_widths = [64620, 128, 128]
 
-##also 8 million params
-# mlp_connectivity_layer_widths = [64620, 128, 64]
-
-# 16 million params
-# mlp_connectivity_layer_widths = [64620, 256, 128]
-
-##fairly good, ish 16 mil params 
-# mlp_connectivity_layer_widths = [64620, 256, 256]
-
-##33 mill params
-# mlp_connectivity_layer_widths = [64620, 512, 256, 128]
-
-# mlp_metadata_layer_widths = [metadata_test_mlp.shape[1]-2, 128, 64, 32, 16]
 mlp_metadata_layer_widths = [metadata_test_mlp.shape[1]-2, 128, 64, 32] ## try this
-# mlp_metadata_layer_widths = [metadata_test_mlp.shape[1]-2, 96, 48, 24] ## try this
 
 concatenated_width = cnn_output_dims + mlp_connectivity_layer_widths[-1] + mlp_metadata_layer_widths[-1]
 mlp_logits_layer_widths = [concatenated_width, 256, 256, 2]
@@ -387,7 +341,7 @@ if diagnostic=='yes':
     print("***WARNING - training model in diagnostic mode***")
 
 
-# In[ ]:
+
 
 
 def clamp(train,test):
@@ -423,7 +377,7 @@ def undersampler(sample_definition,y,num_to_undersample):
     return ids
 
 
-# In[ ]:
+
 
 
 class Error(Exception):
@@ -431,7 +385,7 @@ class Error(Exception):
     pass
 
 
-# In[ ]:
+
 
 
 if render_model_figures:
@@ -447,7 +401,7 @@ if render_model_figures:
     plt.savefig('mean_connectivity.png', dpi=150,bbox_inches='tight')
 
 
-# In[ ]:
+
 
 
 """
@@ -545,15 +499,6 @@ if 'psychology' not in args.metadata_blocks:
     metadata_train_mlp[psychology_block]=0
     metadata_test_mlp[psychology_block]=0
 
-# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-###This is if we were to median split and one-hot encode continuous variables, e.g. 'age' and use that for sigmoid target.
-# mean=np.mean(y_train)
-# y_train[y_train<=mean]=0
-# y_train[y_train>mean]=1
-# y_test[y_test<=mean]=0
-# y_test[y_test>mean]=1
-# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
 metadata_train_mlp.drop(['biobank_id',target],axis=1,inplace=True)
 metadata_test_mlp.drop(['biobank_id',target],axis=1,inplace=True)
 
@@ -583,13 +528,6 @@ if len(np.unique(y_train)) > 2:
     print("Revised mlp_logits_layer_widths: "+str(mlp_logits_layer_widths))
     print("")
     
-    ##for continuous targets, also create a one-hot representation purely for additional metrics and later visualisation.
-#     print("Creating pseudo one-hot representation of continuous target for additional metrics and visualisation")
-#     print("")
-#     y_test_one_hot = np.zeros(shape=(len(y_test),2))
-#     y_test_one_hot[np.argwhere(y_test<=med),0]=1
-#     y_test_one_hot[np.argwhere(y_test>med),1]=1
-#     y_test_one_hot=torch.tensor(y_test_one_hot)
     
 else:
     print("Categorical input, casting to one hot encode...")
@@ -604,7 +542,7 @@ print("")
 print("Clamping, z-scoring and normalising metadata now...")
 
 
-# In[ ]:
+
 
 
 def check_order_train():
@@ -624,7 +562,7 @@ def check_order_train():
         raise Error('Unmatched inputs, exiting...')
 
 
-# In[ ]:
+
 
 
 def check_order_remainder():
@@ -644,7 +582,7 @@ def check_order_remainder():
         raise Error('Unmatched inputs, exiting...')
 
 
-# In[ ]:
+
 
 
 print("")
@@ -652,7 +590,7 @@ check_order_train()
 print("")
 
 
-# In[ ]:
+
 
 
 print("")
@@ -660,7 +598,7 @@ check_order_remainder()
 print("")
 
 
-# In[ ]:
+
 
 
 #initialised here, needed again at epoch level
@@ -669,7 +607,7 @@ train_files = [{"connectivity":u,'flair': v, "t1": w, "dwi":x, "metadata":y, "y"
 val_files = [{"connectivity":u,'flair': v, "t1": w, "dwi":x, "metadata":y, "y": z} for u, v, w, x, y, z in zip(imaging_fmri_test, paths_fl_test,paths_t1_test,paths_dwi_test, metadata_test_mlp, y_test)]
 
 
-# In[ ]:
+
 
 
 ###zero the ununsed inputs...
@@ -701,7 +639,7 @@ for i in zero_list:
     val_files = [{**d,**update} for d in val_files ]
 
 
-# In[ ]:
+
 
 
 # https://stackoverflow.com/questions/23130300/split-list-into-2-lists-corresponding-to-every-other-element
@@ -709,7 +647,7 @@ test_files = val_files[::2]
 val_files = val_files[1::2]
 
 
-# In[ ]:
+
 
 
 print("")
@@ -719,7 +657,7 @@ print("Raw validation sample size: "+str(len(val_files)))
 print("Raw test sample size: "+str(len(test_files)))
 
 
-# In[ ]:
+
 
 
 """
@@ -786,7 +724,7 @@ if len(imaging_keys)==0:
     val_transforms = train_transforms
 
 
-# In[ ]:
+
 
 
 #primed here, but overwritten later
@@ -810,7 +748,7 @@ loader_test = DataLoader(dataset_test, shuffle=False, batch_size=batch_size, dro
                         num_workers=num_workers,pin_memory=False)
 
 
-# In[ ]:
+
 
 
 class ConvLayers(nn.Module):
@@ -922,7 +860,7 @@ class ConvLayers(nn.Module):
         return x
 
 
-# In[ ]:
+
 
 
 class DenseLayers(nn.Module):
@@ -1010,7 +948,7 @@ class DenseLayers(nn.Module):
         return x
 
 
-# In[ ]:
+
 
 
 """
@@ -1057,7 +995,7 @@ mlp_logits = DenseLayers(layer_widths=mlp_logits_layer_widths,
                          output_batch_norm=False).to(device)
 
 
-# In[ ]:
+
 
 
 if args.multi_gpu=='yes':
@@ -1067,7 +1005,7 @@ if args.multi_gpu=='yes':
     mlp_logits = torch.nn.DataParallel(mlp_logits, device_ids=list(range(args.n_gpus)),output_device=None)
 
 
-# In[ ]:
+
 
 
 """
@@ -1094,24 +1032,11 @@ optimizer = torch.optim.Adam(params, lr=learning_rate)
 scaler = torch.cuda.amp.GradScaler(enabled=use_half_precision)
 
 
-# In[ ]:
+
 
 
 # Function to tally the regularisation terms
 
-# def sum_non_bias_l2_norms(parameters, multiplier=1e-4):
-#     """
-#     Given parameters=model.parameters() where model is a PyTorch model, this iterates through the list and tallies
-#     the L2 norms of all the non-bias tensors.
-#     """
-#     l2_reg = 0
-#     for param in parameters:
-#         if len(list(param.size())) > 1:
-#             l2_reg += torch.mean(torch.square(param))
-
-#     if multiplier is not None:
-#         l2_reg = multiplier * l2_reg
-#     return l2_reg
 
 def sum_non_bias_l2_norms(parameters, multiplier=1e-4, stronger_regularisation_exception=[[128, 64620], 1e-3]):
     """
@@ -1150,7 +1075,7 @@ def count_unique_parameters(parameters):
     return count
 
 
-# In[ ]:
+
 
 
 def make_confusion_matrix(cf,
@@ -1219,7 +1144,7 @@ def make_confusion_matrix(cf,
         plt.title(title)
 
 
-# In[ ]:
+
 
 
 """
@@ -1255,7 +1180,7 @@ else:
     list_of_validation_times_per_epoch=[]
 
 
-# In[ ]:
+
 
 
 print("Number of parameters in the cnn: " + str(count_unique_parameters(cnn.named_parameters())))
@@ -1271,7 +1196,7 @@ total_param_count += count_unique_parameters(mlp_logits.named_parameters())
 print("Total number of parameters in the model: " + str(total_param_count))
 
 
-# In[ ]:
+
 
 
 """
@@ -1284,30 +1209,8 @@ writer = SummaryWriter(log_dir=tensorboard_dir)
 print("To start Tensorboard execute the following in the terminal: tensorboard --logdir " + tensorboard_dir + " --port=8008")
 
 
-# In[ ]:
 
 
-# if debug:
-#     counter=0
-#     for batch in loader_val:
-#         counter+=1
-#         if counter >0:
-#             break
-
-#     flair = batch['flair'].to(device, non_blocking=True)
-#     t1 = batch['t1'].to(device, non_blocking=True)
-#     dwi = batch['dwi'].to(device, non_blocking=True)
-#     connectivity = batch['connectivity'].float().to(device, non_blocking=True)
-#     metadata = batch['metadata'].to(device, non_blocking=True)
-#     y = batch['y'].to(device, non_blocking=True)
-#     all_imaging = torch.cat((flair, t1, dwi), dim=1)
-#     labels = y.to(device, non_blocking=True)
-
-#     output_cnn = cnn(all_imaging)
-#     output_metadata = mlp_metadata(metadata.float())
-
-
-# In[ ]:
 
 
 if render_model_figures:
@@ -1375,14 +1278,14 @@ if render_model_figures:
     dot.render('logits_architecture')
 
 
-# In[ ]:
+
 
 
 ###initialise what directory to pull data from at the epoch level
 epoch_paths = np.tile(range(len(glob.glob(path+'AUGMENTATIONS/TRAIN/*'))), 9999)[:max_epochs]
 
 
-# In[ ]:
+
 
 
 """
@@ -1694,7 +1597,7 @@ def one_epoch(input_dictionary):
         
 
 
-# In[ ]:
+
 
 
 """
@@ -1859,7 +1762,7 @@ for epoch in range(starting_epoch, max_epochs):
         print("")
 
 
-# In[ ]:
+
 
 
 """
@@ -1964,7 +1867,7 @@ print("Training and validation complete!")
 print("")
 
 
-# In[ ]:
+
 
 
 """
