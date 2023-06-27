@@ -1,4 +1,5 @@
-# Article codebase to [The legibility of the human brain](URL)
+# [The legibility of the human brain](URL)
+# Article codebase
 
 Software © Dr James K Ruffle | j.ruffle@ucl.ac.uk | High-Dimensional Neurology, UCL Queen Square Institute of Neurology
 
@@ -7,6 +8,8 @@ Software © Dr James K Ruffle | j.ruffle@ucl.ac.uk | High-Dimensional Neurology,
 - [Headline numbers](#headline-numbers)
 - [What is this repository for?](#what-is-this-repository-for)
 - [Usage](#usage)
+- [Open source](#open-source)
+- [Usage queries](#usage-queries)
 - [Citation](#citation)
 - [Funding](#funding)
 
