@@ -50,7 +50,9 @@ Harmonising *large scale multichannel neuroimaging data*, *high-performance hard
 2) Navigate to the target of choice.
 	- Hovering over the target will show the best performing model with the input data required.
 	- Clicking the target will provide a dropdown of all model performances, in detail.
-**Important**: all models are trained on lightly pre-processed data from the UK Biobank neuroimaging team, as detailed in this [article](https://doi.org/10.1016/j.neuroimage.2017.10.034). Images have undergone brain-extraction, with additional signal intensity clamping and resampling to 128<sup>3</sup>. Data is available from the UK Biobank team [here](https://www.ukbiobank.ac.uk). Our image extraction, re-sizing, and standardisation pipeline is available [here](code/import_FLAIR_T1_seg_triples_biobank_3D.m). Please contact us if further information is required on reproducing our specific pre-processing pipeline.
+**Important**: all models are trained on lightly pre-processed data from the UK Biobank neuroimaging team, as detailed in this [article](https://doi.org/10.1016/j.neuroimage.2017.10.034). Images have undergone brain-extraction, with additional signal intensity clamping and resampling to 128<sup>3</sup>. Data is available from the UK Biobank team [here](https://www.ukbiobank.ac.uk). Our image extraction, re-sizing, and standardisation pipeline is available [here](code/import_FLAIR_T1_seg_triples_biobank_3D.m). 
+
+Please contact us if further information is required on reproducing our specific pre-processing pipeline.
 
 N.B. A detailed breakdown of all model performances is available as a [csv file here](assets/metrics_comparison_test.csv).
 
