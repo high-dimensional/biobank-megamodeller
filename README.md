@@ -63,6 +63,8 @@ N.B. A detailed breakdown of all model performances is available as a [csv file 
 ### To retrain
 You can **retrain** a model using this [python code](code/train.py).
 - There may be dependencies you need to install (included but not limited to [PyTorch](https://pytorch.org), [monai](https://monai.io), [sklearn](https://scikit-learn.org/stable/), [nibabel](https://nipy.org/nibabel/)) - please review the code imports for this within the file.
+- A docker container with all prerequisite package installations has been made available on [Docker Hub](https://hub.docker.com/r/highdimneuro/biobank_megamodeller). This can be pulled with the following command:
+```docker pull highdimneuro/biobank_megamodeller```
 
 There are numerous optional arguments with [train.py](code/train.py).
 

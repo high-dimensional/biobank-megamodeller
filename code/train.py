@@ -156,7 +156,7 @@ metadata_test_mlp.drop(variables_to_drop,axis=1,inplace=True)
 
 
 if args.hello_world:
-    print("Welcome to the UK Biobank Megamodeller v3.0 - May 2022 Build")
+    print("Welcome to the UK Biobank Megamodeller v3.1 - September 2023 Build")
     print("")
     print("This code functions to provide relatively easy automated modelling of large scale imaging data with a variety of customisable inputs and parameters, across a range of possible targets")
     print("")
@@ -1077,7 +1077,7 @@ def count_unique_parameters(parameters):
 
 
 
-
+#N.B. the author of make_confusion_matrix is here: https://github.com/DTrimarchi10/confusion_matrix/blob/master/cf_matrix.py
 def make_confusion_matrix(cf,
                           group_names=None,
                           categories='auto',
