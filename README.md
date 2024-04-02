@@ -1,7 +1,8 @@
-# [The legibility of the human brain](URL)
+# [Computational limits to the legibility of the human brain](https://doi.org/10.1016/j.neuroimage.2024.120600)
 # Article codebase
 
-Software © Dr James K Ruffle | j.ruffle@ucl.ac.uk | High-Dimensional Neurology, UCL Queen Square Institute of Neurology
+Software © Dr James K Ruffle | j.ruffle@ucl.ac.uk
+High-Dimensional Neurology, UCL Queen Square Institute of Neurology
 
 
 ## Table of Contents
@@ -22,12 +23,12 @@ Software © Dr James K Ruffle | j.ruffle@ucl.ac.uk | High-Dimensional Neurology,
 - **State-of-the-art sex classification: balanced accuracy on held-out test set 99.7%** (*using T1+FLAIR+DWI neuroimaging*)
 - **State-of-the-art age prediction: mean absolute error on held-out test set 2.048 years** (*using T1+FLAIR neuroimaging*)
 
-![workflow](assets/workflow.jpg)
-**Workflow.** A) Data selection and partitioning. B) Mean T1-weighted, FLAIR, DWI images, and rsfMRI connectivity matrix across the full cohort of 23810 participants. C) Layered, nested, generative stochastic block model of modelling targets, with edges depicting the strength of interconnection. Red edges denote positive correlation coefficient (r) values, and blue for those negative. Wider edges denote a greater value of the absolute correlation coefficient, |r|. D) Algorithmic approach for exploring the model target-feature space to distinguish targets that can be reliably predicted from those that cannot, across all possible data inputs. Shown here is also a schematic of the possible data to train with, ranging from non-imaging data across the constitutional (C) – orange, disease (D) – blue, psychology (P) – green, and serology (S) – pink feature domains; and T1/FLAIR volumetric structural imaging; DWI volumetric imaging; and rsfMRI connectivity. These data are passed to individual trainable model blocks: a separate multilayer perceptron (MLP) for both non-imaging data, and rsfMRI connectivity, and a 3D convolutional neural network (CNN) for T1/FLAIR and/or DWI. Model block dense layers are then concatenated and passed to a final MLP for output prediction.
+![workflow](assets/workflow.png)
+**Workflow.** A) Data selection and partitioning. B) Mean T1-weighted, FLAIR, DWI images, and rsfMRI connectivity matrix across the full cohort of 23 810 participants. C) Layered, nested, generative stochastic block model of modelling targets, with edges depicting the strength of interconnection by mutual information. Node size is proportional to eigenvector centrality, a measure of node ‘influence’ across its network. D) Algorithmic approach for exploring the model target-feature space to distinguish targets that can be reliably predicted from those that cannot, across all possible data inputs. Shown here is also a schematic of the possible data to train with, ranging from non-imaging data across the constitutional (C) – orange, disease (D) – blue, psychology (P) – green, and serology (S) – pink feature domains; and T1/FLAIR volumetric structural imaging; DWI volumetric imaging; and rsfMRI connectivity. These data are passed to individual trainable model blocks: a fully-connected feed-forward network (FNN) for both non-imaging data, and rsfMRI connectivity, and a 3D convolutional neural network (CNN) for T1/FLAIR and/or DWI. Model block dense layers are then concatenated and passed to a final FNN for output prediction.
 
 
 ## What is this repository for?
-This is the codebase for the article: [The legibility of the human brain](URL).
+This is the codebase for the article: [Computational limits to the legibility of the human brain](https://doi.org/10.1016/j.neuroimage.2024.120600).
 
 Harmonising *large scale multichannel neuroimaging data*, *high-performance hardware*, and a custom-built *general purpose deep learning training pipeline*, we quantify the **individual-level legibility of common biological and pathological characteristics from models of the structurally and functionally imaged human brain**. 
 
@@ -56,7 +57,7 @@ Please contact us if further information is required on reproducing our specific
 
 N.B. A detailed breakdown of all model performances is available as a [csv file here](assets/metrics_comparison_test.csv).
 
-![html_tutorial](assets/html_tutorial.jpg)
+![html_tutorial](assets/html_tutorial.png)
 **Visual network analysis plots of feature relationships and model performances.** A) Graph of target features, with nodes sized by the absolute correlation coefficient (|r|)-weighted eigenvector centrality (EC), and edges sized according to |r|. B) Graph of target features, with nodes sized by the maximum information coefficient (MIC)-weighted eigenvector centrality (EC), and edges sized according to the MIC. C) Graph of target features, with nodes sized by the maximum balanced accuracy across all models (BA), with edges sized according to the mean inverse Euclidean distance of all input combinations between each pair of targets. For all panels we depict the top 60% of edges for visualisation purposes. Note that all graphs are made available as fully interactive and customizable HTML objects within the supplementary material.
 
 
@@ -112,11 +113,11 @@ optional arguments:
 N.B. You **do not** need to pass all input data. The model will recognise the inputs you provide it, zero those non-supplied entities, and remove this from the back-propagation operation. In the example call above, rsfMRI connectivity and non-imaging data will all be zeroed, and held out from back-propagation.
 
 
-Code for all model training and post-hoc analysis detailed within the [article](URL) is open sourced [here](code/). 
+Code for all model training and post-hoc analysis detailed within the [article](https://doi.org/10.1016/j.neuroimage.2024.120600) is open sourced [here](code/). 
 
-Model architecture is available [here](assets/architecture.jpg).
+Model architecture is available [here](assets/architecture.svg).
 
-![efficiency](assets/training_efficiency.jpg)
+![efficiency](assets/training_efficiency.png)
 **Anticipated training times (benchmarks on 4 x P100 GPUs)**, A) Strip plot illustrates training time taken per model in GPU minutes (x-axis) for all possible feature input combinations (y-axis). Grey points indicate individual models, with mean shown as a black diamond, and 95% confidence interval shown as a black line. B) Bar plot of total training time in GPU hours for all feature input combinations. Only 64 x 64 x 64 resolution models are shown here for visual simplicity. 
 
 
@@ -125,9 +126,9 @@ Via github issue log or email to j.ruffle@ucl.ac.uk.
 
 
 ## Citation
-If using these works, please cite the following [article](URL).
+If using these works, please cite the following [article](https://doi.org/10.1016/j.neuroimage.2024.120600).
 
-James K Ruffle, Robert Gray, Samia Mohinta, Guilherme Pombo, Chaitanya Kaul, Harpreet Hyare, Geraint Rees, Parashkev Nachev. The legibility of the human brain. arXiv. 2023. DOI X
+James K Ruffle, Robert Gray, Samia Mohinta, Guilherme Pombo, Chaitanya Kaul, Harpreet Hyare, Geraint Rees, Parashkev Nachev. Computational limits to the legibility of the human brain. Neuroimage. 2024. DOI: https://doi.org/10.1016/j.neuroimage.2024.120600
 
 
 
