@@ -2,6 +2,7 @@
 # Article codebase
 
 Software © Dr James K Ruffle | j.ruffle@ucl.ac.uk
+
 High-Dimensional Neurology, UCL Queen Square Institute of Neurology
 
 
@@ -17,11 +18,11 @@ High-Dimensional Neurology, UCL Queen Square Institute of Neurology
 
 
 ## Headline numbers
-- Models trained, validated, and tested across **23810 unique UK Biobank participants**.
+- Models trained, validated, and tested across **23 810 unique UK Biobank participants**.
 - **700 individual models** trained, offering flexibility in data availability spanning volumetric T1, FLAIR, DWI, resting functional connectivity, and non-imaging data (constitutional, psychological, serological, and disease).
 - **4526 P100 GPU hours**
-- **State-of-the-art sex classification: balanced accuracy on held-out test set 99.7%** (*using T1+FLAIR+DWI neuroimaging*)
-- **State-of-the-art age prediction: mean absolute error on held-out test set 2.048 years** (*using T1+FLAIR neuroimaging*)
+- **State-of-the-art sex classification: balanced accuracy on held-out test set 99.7%** (*using T1+FLAIR+DWI*)
+- **State-of-the-art age prediction: mean absolute error on held-out test set 2.048 years** (*using T1+FLAIR*)
 
 ![workflow](assets/workflow.png)
 **Workflow.** A) Data selection and partitioning. B) Mean T1-weighted, FLAIR, DWI images, and rsfMRI connectivity matrix across the full cohort of 23 810 participants. C) Layered, nested, generative stochastic block model of modelling targets, with edges depicting the strength of interconnection by mutual information. Node size is proportional to eigenvector centrality, a measure of node ‘influence’ across its network. D) Algorithmic approach for exploring the model target-feature space to distinguish targets that can be reliably predicted from those that cannot, across all possible data inputs. Shown here is also a schematic of the possible data to train with, ranging from non-imaging data across the constitutional (C) – orange, disease (D) – blue, psychology (P) – green, and serology (S) – pink feature domains; and T1/FLAIR volumetric structural imaging; DWI volumetric imaging; and rsfMRI connectivity. These data are passed to individual trainable model blocks: a fully-connected feed-forward network (FNN) for both non-imaging data, and rsfMRI connectivity, and a 3D convolutional neural network (CNN) for T1/FLAIR and/or DWI. Model block dense layers are then concatenated and passed to a final FNN for output prediction.
@@ -41,7 +42,7 @@ Harmonising *large scale multichannel neuroimaging data*, *high-performance hard
 
 
 ![data_utility](assets/data_utility.jpg)
-**Domain-specific effects.** Linear mixed-effects models for predicting out of sample performance (balanced accuracy or R2, where applicable) from structural imaging, functional imaging, and non-imaging domain feature sets. Shown are coefficient plots for models whose targets are A) constitutional, B) psychology, C) disease, and D) serology. Inputs with coefficients whose values are positive are associated with increase model performance (advantageous), whilst features with negative coefficients are associated with weaker performance (detrimental). Asterisks stipulate statistical significance as per standard convention: * denotes p<0.05; ** denotes p<0.01; *** denotes p<0.001. Code for this analysis is available [here](code/ModelComparison.R)
+**Domain-specific effects.** Linear mixed-effects models for predicting out of sample performance (balanced accuracy or R2, where applicable) from structural imaging, functional imaging, and non-imaging domain feature sets. Shown are coefficient plots for models whose targets are A) constitutional, B) psychology, C) disease, and D) serology. Inputs with coefficients whose values are positive are associated with increase model performance (advantageous), whilst features with negative coefficients are associated with weaker performance (detrimental). Asterisks stipulate statistical significance as per standard convention: * denotes p<0.05; ** denotes p<0.01; *** denotes p<0.001.
 
 
 
@@ -51,19 +52,17 @@ Harmonising *large scale multichannel neuroimaging data*, *high-performance hard
 2) Navigate to the target of choice.
 	- Hovering over the target will show the best performing model with the input data required.
 	- Clicking the target will provide a dropdown of all model performances, in detail.
-**Important**: all models are trained on lightly pre-processed data from the UK Biobank neuroimaging team, as detailed in this [article](https://doi.org/10.1016/j.neuroimage.2017.10.034). Images have undergone brain-extraction, with additional signal intensity clamping and resampling to 128<sup>3</sup>. Data is available from the UK Biobank team [here](https://www.ukbiobank.ac.uk). Our image extraction, re-sizing, and standardisation pipeline is available [here](code/import_FLAIR_T1_seg_triples_biobank_3D.m). 
-
-Please contact us if further information is required on reproducing our specific pre-processing pipeline.
+    - **Important**: all models are trained on lightly pre-processed data from the UK Biobank neuroimaging team, as detailed in this [article](https://doi.org/10.1016/j.neuroimage.2017.10.034). Images have undergone brain-extraction, with additional signal intensity clamping and resampling to 128<sup>3</sup>. Data is available from the UK Biobank team [here](https://www.ukbiobank.ac.uk). Our image extraction, re-sizing, and standardisation pipeline is available [here](code/import_FLAIR_T1_seg_triples_biobank_3D.m). Please contact us if further information is required on reproducing our specific pre-processing pipeline.
 
 N.B. A detailed breakdown of all model performances is available as a [csv file here](assets/metrics_comparison_test.csv).
 
 ![html_tutorial](assets/html_tutorial.png)
-**Visual network analysis plots of feature relationships and model performances.** A) Graph of target features, with nodes sized by the absolute correlation coefficient (|r|)-weighted eigenvector centrality (EC), and edges sized according to |r|. B) Graph of target features, with nodes sized by the maximum information coefficient (MIC)-weighted eigenvector centrality (EC), and edges sized according to the MIC. C) Graph of target features, with nodes sized by the maximum balanced accuracy across all models (BA), with edges sized according to the mean inverse Euclidean distance of all input combinations between each pair of targets. For all panels we depict the top 60% of edges for visualisation purposes. Note that all graphs are made available as fully interactive and customizable HTML objects within the supplementary material.
+**Visual network analysis plots of feature relationships and model performances.** A) Graph of target features, with nodes sized by mutual information (MI)-weighted eigenvector centrality (EC), and edges sized according to pairwise MI. Eigenvector centrality is a measure of influence of a node across a network. B) Graph of target features, with nodes sized by the maximum information coefficient (MIC)-weighted eigenvector centrality (EC), and edges sized according to the MIC. C) Graph of target features, with nodes sized by the maximum balanced accuracy across all models (BA), with edges sized according to the mean inverse Euclidean distance of all input combinations between each pair of targets. For all panels we depict the top 60% of edges for visualisation purposes. Note that all graphs are made available as fully interactive and customizable [HTML objects here](Interactive_results.html), and within the [article supplementary material](https://doi.org/10.1016/j.neuroimage.2024.120600) 
 
 
 ### To retrain
-You can **retrain** a model using this [python code](code/train.py).
-- There may be dependencies you need to install (included but not limited to [PyTorch](https://pytorch.org), [monai](https://monai.io), [sklearn](https://scikit-learn.org/stable/), [nibabel](https://nipy.org/nibabel/)) - please review the code imports for this within the file.
+You can **retrain** a model using this [Python code](code/train.py).
+- There may be dependencies you need to install (included but not limited to [PyTorch](https://pytorch.org), [monai](https://monai.io), [sklearn](https://scikit-learn.org/stable/), [nibabel](https://nipy.org/nibabel/)). Please review the code imports for this within the file.
 - A docker container with all prerequisite package installations has been made available on [Docker Hub](https://hub.docker.com/r/highdimneuro/biobank_megamodeller). This can be pulled with the following command:
 ```docker pull highdimneuro/biobank_megamodeller```
 
@@ -126,13 +125,13 @@ Via github issue log or email to j.ruffle@ucl.ac.uk.
 
 
 ## Citation
-If using these works, please cite the following [article](https://doi.org/10.1016/j.neuroimage.2024.120600).
+If using or referencing these works, please cite the following [article](https://doi.org/10.1016/j.neuroimage.2024.120600).
 
 James K Ruffle, Robert Gray, Samia Mohinta, Guilherme Pombo, Chaitanya Kaul, Harpreet Hyare, Geraint Rees, Parashkev Nachev. Computational limits to the legibility of the human brain. Neuroimage. 2024. DOI: https://doi.org/10.1016/j.neuroimage.2024.120600
 
 
 
 ## Funding
-The Wellcome Trust; UCLH NIHR Biomedical Research Centre; Medical Research Council; Guarantors of Brain; NHS Topol Digital Fellowship.
+The Wellcome Trust; Medical Research Council; UCLH NIHR Biomedical Research Centre; Guarantors of Brain; NHS Topol Digital Fellowship.
 ![funders](assets/funders.png)
 
