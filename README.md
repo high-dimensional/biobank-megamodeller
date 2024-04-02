@@ -41,7 +41,7 @@ Harmonising *large scale multichannel neuroimaging data*, *high-performance hard
 
 ## Usage
 ### Pre-trained models
-1) Open the [HTML dashboard](Interactive_results.html) in your web browser. 
+1) Open the [HTML dashboard](https://htmlpreview.github.io/?https://github.com/high-dimensional/biobank-megamodeller/blob/71ed992c84c0ce80b984eb11717ebfde9b2d714f/Interactive_results.html) in your web browser. 
 2) Navigate to the target of choice.
 	- Hovering over the target will show the best performing model with the input data required.
 	- Clicking the target will provide a dropdown of all model performances, in detail.
