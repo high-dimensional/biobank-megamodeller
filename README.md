@@ -7,8 +7,8 @@ High-Dimensional Neurology, UCL Queen Square Institute of Neurology
 
 
 ## Table of Contents
-- [Headline numbers](#headline-numbers)
 - [What is this repository for?](#what-is-this-repository-for)
+- [Headline numbers](#headline-numbers)
 - [Usage](#usage)
 	- [Pre-trained models](#pre-trained-models)
 	- [To retrain](#to-retrain)
@@ -16,6 +16,12 @@ High-Dimensional Neurology, UCL Queen Square Institute of Neurology
 - [Citation](#citation)
 - [Funding](#funding)
 
+## What is this repository for?
+This is the codebase for the article: [Computational limits to the legibility of the human brain](https://doi.org/10.1016/j.neuroimage.2024.120600).
+
+Harmonising *large scale multichannel neuroimaging data*, *high-performance hardware*, and a custom-built *general purpose deep learning training pipeline*, we quantify the **individual-level legibility of common biological and pathological characteristics from models of the structurally and functionally imaged human brain**. 
+
+**The process illuminates what can — and what plausibly cannot be — predicted from current neuroimaging with large-scale data and state-of-the-art deep learning architectures.**
 
 ## Headline numbers
 - Models trained, validated, and tested across **23 810 unique UK Biobank participants**.
@@ -28,12 +34,7 @@ High-Dimensional Neurology, UCL Queen Square Institute of Neurology
 **Workflow.** A) Data selection and partitioning. B) Mean T1-weighted, FLAIR, DWI images, and rsfMRI connectivity matrix across the full cohort of 23 810 participants. C) Layered, nested, generative stochastic block model of modelling targets, with edges depicting the strength of interconnection by mutual information. Node size is proportional to eigenvector centrality, a measure of node ‘influence’ across its network. D) Algorithmic approach for exploring the model target-feature space to distinguish targets that can be reliably predicted from those that cannot, across all possible data inputs. Shown here is also a schematic of the possible data to train with, ranging from non-imaging data across the constitutional (C) – orange, disease (D) – blue, psychology (P) – green, and serology (S) – pink feature domains; and T1/FLAIR volumetric structural imaging; DWI volumetric imaging; and rsfMRI connectivity. These data are passed to individual trainable model blocks: a fully-connected feed-forward network (FNN) for both non-imaging data, and rsfMRI connectivity, and a 3D convolutional neural network (CNN) for T1/FLAIR and/or DWI. Model block dense layers are then concatenated and passed to a final FNN for output prediction.
 
 
-## What is this repository for?
-This is the codebase for the article: [Computational limits to the legibility of the human brain](https://doi.org/10.1016/j.neuroimage.2024.120600).
 
-Harmonising *large scale multichannel neuroimaging data*, *high-performance hardware*, and a custom-built *general purpose deep learning training pipeline*, we quantify the **individual-level legibility of common biological and pathological characteristics from models of the structurally and functionally imaged human brain**. 
-
-**The process illuminates what can — and what plausibly cannot be — predicted from current neuroimaging with large-scale data and state-of-the-art deep learning architectures.**
 
 
 ![performance_grid](assets/performance_grid.jpg)
